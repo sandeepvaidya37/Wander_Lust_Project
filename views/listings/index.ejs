@@ -1,0 +1,76 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+    <div class="nav"></div>
+    <form class="new" action="/listing/new" method="get">
+            <button>create a listing</button>
+    </form>
+    <div id="filters">
+<div class="home-icons">
+    <div class="filter">
+        <div> <i class="fa-solid fa-fire"></i></div>
+        <p> Trending</p>
+     </div>
+     <div class="filter">
+         <div> <i class="fa-solid fa-bed"></i></div>
+         <p> Rooms</p>
+      </div>
+      <div class="filter">
+         <div> <i class="fa-solid fa-water"></i></div>
+         <p> Lake</p>
+      </div>
+      <div class="filter">
+         <div><i class="fa-solid fa-key"></i></div>
+         <p>New</p>
+      </div>
+      <div class="filter">
+         <div> <i class="fa-solid fa-bowl-food"></i></div>
+         <p> Luxe</p>
+      </div>
+      <div class="filter">
+         <div> <i class="fa-solid fa-person-skiing"></i></div>
+         <p> Skiing</p>
+      </div>
+      <div class="filter">
+         <div> <i class="fa-solid fa-door-open"></i></div>
+         <p> Amazing Views</p>
+      </div>
+      <div class="filter">
+         <div> <i class="fa-brands fa-think-peaks"></i></div>
+         <p> Top Of The World</p>
+      </div>
+      <div class="filter">
+         <div> <i class="fa-solid fa-tent"></i></div>
+         <p> Camping</p>
+      </div>
+</div>
+ <div class="switch">
+    <div class="form-check-reverse form-switch">
+        <input class="form-check-input tax-switch" type="checkbox" id="flexSwitchCheckDefault">
+        <label class="form-check-label tax1" for="flexSwitchCheckDefault">Display Total After Taxes</label>
+        <label class="form-check-label tax2" for="flexSwitchCheckDefault">with taxes</label>
+      </div>
+ </div>
+    </div>
+    <div class="list "  >
+        <% for( let listing of allListing ) { %>
+          <a href="http://localhost:8080/listing/<%= listing.id %>">
+            <div class="card" style="width: 20rem; height: 30rem;">
+                <img src="<%= listing.image.url %>"  class="card-img-top" alt="img not available" style=" height: 20rem; object-fit: cover;">
+                <div class="card-img-overlay">
+                </div>
+
+                <div class="card-body">
+                    <p class="title"><%= listing.title %></p>
+                    <p><%= listing.location %>/
+                        <%= listing.country %></p>
+                    <p>&#8377; <%= listing.price.toLocaleString("en-IN") %>/night <i class="GST">+20% GST</i></p>
+                    
+                </div>
+              </div>
+          </a>
+            
+        <% } %>
+    </div>
+    
+    
+</body>

@@ -1,0 +1,129 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+             <div class="show-main ">
+                <div class="show-left">
+                    <img src="<%= listing.image.url %>" alt="listing-image">
+                </div>   
+                <br>  
+                <h4>Owner :<i><%= listing.owner.username %></i></h4>
+                <div class="show-right">
+                    <h1><%= listing.title %></h1>
+                    <p><%= listing.description %></p>
+                    <p>&#8377;  <%= listing.price.toLocaleString("en-IN") %></p>
+                    <p><%= listing.location %>/<%= listing.country %></p>
+                    <div id="map">
+                 
+                    </div>
+                    <br>
+                    <div class="show-btn">
+                        <% if (currUser) { %>
+                               
+                          <% if (listing.owner.id == currUser.id) { %>
+
+                            <button class="new-btn"><a style="text-decoration: none; color: black;" href="/listing/<%= listing.id%>/edit">Edit</a></button>
+                          
+                          <form action="/listing/<%= listing.id %>?_method=DELETE" method="post">
+                              <button class="new-btn">Delete</button>
+                          </form>
+                           
+                          <% } %>
+
+
+                        <% } %>
+                    </div>
+                </div> 
+                <% if (currUser) { %>
+
+                  <div class="col-8 nb-3 mt-4">
+                    <h4>Leave A Review</h4>
+                        <form action="/listing/<%= listing.id %>/reviews" method="post" novalidate class="needs-validation">
+                         <input style="display: none;"  type="text" value="<%= currUser.username %>" name="review[user]" >
+                       <div class="mb-3">
+                           <label for="Rating">Rating</label>
+                           <br>
+                           <div class="rating" >
+                             <input value="5" name="review[rating]" id="star5" type="radio">
+                             <label for="star5"></label>
+                             <input value="4" name="review[rating]" id="star4" type="radio">
+                             <label for="star4"></label>
+                             <input value="3" name="review[rating]" id="star3" type="radio">
+                             <label for="star3"></label>
+                             <input value="2" name="review[rating]" id="star2" type="radio">
+                             <label for="star2"></label>
+                             <input value="1" name="review[rating]" id="star1" type="radio">
+                             <label for="star1"></label>
+                             <input style="display: none;" value="0" name="review[rating]" id="star1" type="radio" checked>
+                             <label style="display: none;" for="star0"></label>
+                           </div>
+                           
+                           
+                       </div>
+                       <div class="mb-3">
+                             
+                           <label for="comment" class="form-label">Comments</label>
+                           <textarea class="form-control" maxlength="100" name="review[comment]" id="comment" cols="30" rows="5" required></textarea>
+                           <div class="valid-feedback">
+                               good;
+                             </div>
+                             <div class="invalid-feedback">
+                               this field cant be empty!
+   
+                             </div>
+                       </div>
+                       <button class="new-btn">Submit</button>
+   
+                        </form>
+                 
+                <% } %>
+                <br>
+                
+                
+                     <hr>
+                     <h4>All Reviews</h4>
+                     <br><br>
+                     <div class="review-container">
+                        
+                        <% for( let review of listing.reviews ) { %>
+                        
+                            <div class="review-card">
+                                <p><%= review.user %></p>
+                                <br>
+                                <p><b><%= review.rating %><i class="fa-solid fa-star" style="color: #FFD43B;"></i></b></p>
+                                <br>
+                                  <div class="review-card-info">
+                                    <p class="review-text-body"><%= review.comment %></p>
+                                    <% if (currUser) { %>
+                                      <% if (currUser.username==review.user) { %>
+                                        <form action="/listing/<%= listing.id %>/reviews/<%= review.id %>" method="post">
+                                          <button class="new-btn">Delete</button>
+                                      </form>
+                                      <% } %>
+                                    <% } %>
+                                  </div>
+                                </div>
+
+
+                        <% } %>
+
+                     </div>
+                </div>
+             </div>
+             <br><br><br><br>
+             <script>
+              const key = '3DkN9IC3PaD8283FwG0w';
+              const map = L.map('map').setView([28.984086, 77.709446], 14); //starting position
+              L.tileLayer(`https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=${key}`,{ //style URL
+                tileSize: 512,
+                zoomOffset: -1,
+                minZoom: 1,
+                attribution: "\u003ca href=\"https://www.maptiler.com/copyright/\" target=\`${listing.location}\`\u003e\u0026copy; MapTiler\u003c/a\u003e \u003ca href=\"https://www.openstreetmap.org/copyright\" target=\`${listing.country}\`\u003e\u0026copy; OpenStreetMap contributors\u003c/a\u003e",
+                crossOrigin: true
+              }).addTo(map);
+              var popup = L.popup()
+    .setLatLng([28.984086, 77.709446])
+    .setContent("Listing Located here.")
+    .openOn(map);
+            </script>
+             
+             <script src="./js/map,js"></script>
+</body>
