@@ -37,7 +37,7 @@ await newListing.save();
 
 req.flash('success', 'New Listing Created!');
 
-res.redirect("http://localhost:8080/listing",);
+res.redirect("/listing",);
  
   
 };
@@ -70,7 +70,7 @@ module.exports.updateListing=async(req, res)=>{
      }
   
   req.flash("success", "Listing Updted!");
-  res.redirect(`http://localhost:8080/listing/${id}`);
+  res.redirect(`/listing/${id}`);
   
   };
   module.exports.editListing=async(req, res)=>{
@@ -89,7 +89,7 @@ module.exports.updateListing=async(req, res)=>{
     
       let deletedListing=await Listing.findByIdAndDelete(id);
       req.flash('Delete', 'Listing deleted successfully!');
-      res.redirect("http://localhost:8080/listing");
+      res.redirect("/listing");
          
     }catch{
     next(err);
