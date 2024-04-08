@@ -13,7 +13,7 @@ module.exports.addReview = async(req,res, next)=>{
    await newReview.save();
    await listing.save();
    req.flash('NewReview', 'New Review Added successfully!');
-   res.redirect(`http://localhost:8080/listing/${id}`);
+   res.redirect(`/listing/${id}`);
    
    
    
@@ -26,7 +26,7 @@ module.exports.addReview = async(req,res, next)=>{
     await Listing.findByIdAndUpdate(id, {$pull: {reviews: id2}});
     await Review.findByIdAndDelete(id2);
     req.flash('NewReviewD', 'Review Deleted successfully!');
-    res.redirect(`http://localhost:8080/listing/${id}`);
+    res.redirect(`/listing/${id}`);
     
     
     };
