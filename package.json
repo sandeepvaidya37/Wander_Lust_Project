@@ -2,7 +2,7 @@
  {
   
   "engines": {
-    "node":"20.10.0",
+    "node":"20.10.0"
   },
 
   "name": "finalproject",
@@ -14,7 +14,7 @@
    "start": "node app.js"
   },
   "keywords": [],
-  "author": "Sandeep Vaidya",
+  "author": "sandeepvaidya",
   "license": "ISC",
   "dependencies": {
     "@geoapify/leaflet-address-search-plugin": "^1.0.2",
